@@ -101,14 +101,6 @@
         .resume-subtitle { font-size: 0.95rem; color: var(--secondary); margin-bottom: 12px; font-weight: 600;}
         .resume-desc { font-size: 0.9rem; color: var(--text-light); }
 
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1100px; margin: auto;}
-        .service-card { background: #fff; padding: 2rem 1.5rem; border-radius: 16px; box-shadow: var(--shadow-md); text-align: center; border: 1px solid rgba(0,0,0,0.02); transition: var(--transition); }
-        .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
-        .service-icon { width: 55px; height: 55px; background: var(--bg-gradient); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; color: var(--primary); margin: 0 auto 1.2rem; }
-        .service-card h3 { color: var(--text-dark); margin-bottom: 12px; font-size: 1.2rem; }
-        .service-price { font-size: 1rem; font-weight: 700; color: #10b981; margin-bottom: 15px; background: #d1fae5; display: inline-block; padding: 4px 12px; border-radius: 20px; }
-        .service-card p { color: var(--text-light); font-size: 0.9rem; text-align: left; }
-
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; max-width: 1100px; margin: auto;}
         .project-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,0.02); }
         .project-img-wrapper { position: relative; overflow: hidden; }
@@ -232,7 +224,6 @@
             <a href="#hero" class="active">Home</a>
             <a href="#about">About</a>
             <a href="#resume">Resume</a>
-            <a href="#services">Services</a>
             <a href="#projects">Portfolio</a>
             <a href="#contact">Contact</a>
         </nav>
@@ -323,37 +314,7 @@
         </div>
     </section>
 
-    <section id="services" style="background-color: #fff;">
-        <h2 class="section-title reveal">My <span>Services</span></h2>
-        <div class="services-grid">
-            <div class="service-card reveal">
-                <div class="service-icon"><i class="fas fa-database"></i></div>
-                <h3>End-to-End Data Analysis</h3>
-                <div class="service-price">Starting at $45</div>
-                <p>I handle your entire data journey: extracting from SQL databases, cleaning, modeling, and presenting in interactive Power BI dashboards ready for decision-making.</p>
-            </div>
-            <div class="service-card reveal" style="transition-delay: 0.1s;">
-                <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
-                <h3>Interactive Power BI Dashboards</h3>
-                <div class="service-price">Starting at $20</div>
-                <p>I design a professional dashboard that presents your key metrics. Includes up to 3 pages, filters, slicers, and delivery of the final PBIX source file.</p>
-            </div>
-            <div class="service-card reveal" style="transition-delay: 0.2s;">
-                <div class="service-icon"><i class="fas fa-code"></i></div>
-                <h3>SQL Query Writing & Optimization</h3>
-                <div class="service-price">Starting at $10</div>
-                <p>I extract, filter, and summarize your data from SQL databases so it is connected and ready for your reports or tools. Delivery in CSV/Excel plus source SQL code.</p>
-            </div>
-            <div class="service-card reveal" style="transition-delay: 0.3s;">
-                <div class="service-icon"><i class="fas fa-broom"></i></div>
-                <h3>Data Cleaning & Preparation</h3>
-                <div class="service-price">Starting at $10</div>
-                <p>I make your data accurate and analysis-ready. Handling missing values, duplicates, format standardization, and data type assignment using Power Query & Excel.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects">
+    <section id="projects" style="background-color: #fff;">
         <h2 class="section-title reveal">Featured <span>Projects</span></h2>
         <div class="projects-grid">
             
@@ -453,7 +414,7 @@
         </div>
     </section>
 
-    <section id="contact" style="background-color: #fff;">
+    <section id="contact">
         <h2 class="section-title reveal">Get In <span>Touch</span></h2>
         <div class="contact-container">
             
