@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafeek Sameh | Data Analyst Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2; 
+            --secondary: #a390e4; 
+            --text-dark: #2d3748;
+            --text-light: #4a5568;
+            --bg-light: #f7fafc;
+            --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #ede9fe 50%, #fce7f3 100%);
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; font-size: 16px; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        
+        header { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1rem 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 1001;}
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            z-index: 1001;
+            transition: var(--transition);
+        }
+        .menu-btn:hover { color: var(--primary); }
+
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { color: var(--text-dark); margin-left: 1.5rem; font-weight: 600; font-size: 0.95rem; position: relative; }
+        .nav-links a:hover { color: var(--primary); }
+        
+        .nav-links a.active { color: var(--primary); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background-color: var(--primary); border-radius: 2px; }
+
+        .hero { 
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; 
+            background: var(--bg-gradient);
+            padding: 4rem 20px; 
+            position: relative;
+            margin-top: 0;
+            padding-top: 80px; 
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 80px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg"><path fill="%23f7fafc" d="M0,50 C320,150 420,-50 1440,50 L1440,100 L0,100 Z"/></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+        
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); color: var(--text-dark); margin-bottom: 1rem; font-weight: 800; letter-spacing: -1px; line-height: 1.2;}
+        .hero h2 { font-size: clamp(1.1rem, 2vw, 1.25rem); color: var(--text-light); margin-bottom: 2rem; font-weight: 400; max-width: 650px; line-height: 1.5;}
+        
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; z-index: 10; }
+        .btn { padding: 12px 28px; border-radius: 30px; font-weight: 600; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; box-shadow: 0 4px 12px rgba(74, 144, 226, 0.25); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(74, 144, 226, 0.35); color: #fff;}
+        .btn-outline { background: #fff; color: var(--primary); box-shadow: var(--shadow-sm); }
+        .btn-outline:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); color: var(--primary); }
+
+        section { padding: 6rem 5%; }
+        .section-title { text-align: center; font-size: 2.25rem; color: var(--text-dark); margin-bottom: 3rem; font-weight: 800; }
+        .section-title span { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .about-text { max-width: 850px; margin: auto; font-size: 1.05rem; color: var(--text-light); background: #fff; padding: 2.5rem; border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid rgba(0,0,0,0.02); }
+        .about-text p { margin-bottom: 1.2rem; }
+        .about-text ul { margin-left: 1.5rem; margin-bottom: 1.5rem; }
+        .about-text li { margin-bottom: 0.5rem; }
+        .about-text strong { color: var(--text-dark); }
+        
+        .platform-badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 2rem; }
+        .platform-badge { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--bg-light); border-radius: 12px; font-weight: 600; color: var(--text-dark); font-size: 0.95rem; }
+        .platform-badge i { font-size: 1.1rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .platform-badge:hover { background: #fff; transform: translateY(-3px); box-shadow: var(--shadow-md); color: var(--primary); }
+
+        .resume-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; max-width: 1100px; margin: auto; }
+        .resume-column h3 { font-size: 1.5rem; color: var(--text-dark); margin-bottom: 2rem; display: flex; align-items: center; gap: 12px; }
+        .resume-column h3 i { color: var(--primary); }
+        .resume-card { background: #fff; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow-md); margin-bottom: 1.5rem; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.02); }
+        .resume-card::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: linear-gradient(to bottom, var(--primary), var(--secondary)); }
+        .resume-date { font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; display: inline-block; background: var(--bg-gradient); padding: 4px 12px; border-radius: 20px; }
+        .resume-title { font-size: 1.15rem; color: var(--text-dark); margin-bottom: 5px; font-weight: 700; line-height: 1.3;}
+        .resume-subtitle { font-size: 0.95rem; color: var(--secondary); margin-bottom: 12px; font-weight: 600;}
+        .resume-desc { font-size: 0.9rem; color: var(--text-light); }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1100px; margin: auto;}
+        .service-card { background: #fff; padding: 2rem 1.5rem; border-radius: 16px; box-shadow: var(--shadow-md); text-align: center; border: 1px solid rgba(0,0,0,0.02); transition: var(--transition); }
+        .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+        .service-icon { width: 55px; height: 55px; background: var(--bg-gradient); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; color: var(--primary); margin: 0 auto 1.2rem; }
+        .service-card h3 { color: var(--text-dark); margin-bottom: 12px; font-size: 1.2rem; }
+        .service-price { font-size: 1rem; font-weight: 700; color: #10b981; margin-bottom: 15px; background: #d1fae5; display: inline-block; padding: 4px 12px; border-radius: 20px; }
+        .service-card p { color: var(--text-light); font-size: 0.9rem; text-align: left; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; max-width: 1100px; margin: auto;}
+        .project-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,0.02); }
+        .project-img-wrapper { position: relative; overflow: hidden; }
+        .project-img { width: 100%; height: 220px; object-fit: cover; transition: transform 0.5s ease; display: block; }
+        .project-card:hover .project-img { transform: scale(1.05); }
+        .project-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .project-title { font-size: 1.35rem; color: var(--text-dark); margin-bottom: 12px; font-weight: 800;}
+        
+        .project-tools { margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 6px;}
+        .tool-badge { background: var(--bg-light); color: var(--text-light); font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; font-weight: 600; border: 1px solid #e2e8f0; }
+        
+        .project-desc { color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
+        .project-desc strong { color: var(--text-dark); display: block; margin-top: 12px; margin-bottom: 5px; }
+        .project-desc ul { margin-left: 1.2rem; }
+        
+        .project-links { margin-top: auto; padding-top: 15px; border-top: 1px solid #edf2f7; }
+        .project-links a { display: inline-block; padding: 8px 16px; background: var(--bg-gradient); color: var(--primary); border-radius: 8px; font-weight: 700; font-size: 0.9rem; }
+        .project-links a:hover { background: var(--primary); color: #fff; }
+
+        .contact-container { display: flex; flex-wrap: wrap; gap: 2rem; max-width: 1000px; margin: auto; }
+        .contact-info { flex: 1; min-width: 280px; }
+        .contact-form { flex: 1.5; min-width: 280px; background: #fff; padding: 2.5rem; border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid rgba(0,0,0,0.02); }
+        
+        .contact-info h3 { font-size: 1.6rem; color: var(--text-dark); margin-bottom: 10px; }
+        .contact-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .contact-icon { width: 45px; height: 45px; border-radius: 50%; background: var(--bg-gradient); display: flex; justify-content: center; align-items: center; font-size: 1.2rem; color: var(--primary); }
+        .contact-item h4 { color: var(--text-light); font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+        .contact-item a { color: var(--text-dark); font-weight: 700; font-size: 1.05rem; }
+        .contact-item a:hover { color: var(--primary); }
+        
+        .form-group { margin-bottom: 1.2rem; }
+        .form-control { width: 100%; padding: 12px 15px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: var(--text-dark); background: #f8fafc; transition: var(--transition); font-family: inherit; }
+        .form-control:focus { outline: none; border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15); }
+        textarea.form-control { resize: vertical; min-height: 140px; }
+
+        footer { background: linear-gradient(to right, #1a202c, #2d3748); color: #fff; text-align: center; padding: 3rem 5%; position: relative; overflow: hidden; }
+        footer::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(74, 144, 226, 0.1) 0%, transparent 70%); }
+        .social-links { margin-bottom: 1.5rem; position: relative; z-index: 1; }
+        .social-links a { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); margin: 0 8px; color: #fff; font-size: 1.2rem; transition: var(--transition); }
+        .social-links a.whatsapp:hover { background: #25D366; transform: translateY(-3px); }
+        .social-links a.linkedin:hover { background: #0077b5; transform: translateY(-3px); }
+        .social-links a.github:hover { background: #333; transform: translateY(-3px); }
+        .copyright { font-size: 0.85rem; color: #718096; position: relative; z-index: 1; }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn { display: block; }
+            
+            .nav-links { 
+                position: fixed;
+                top: 0;
+                right: -100%; 
+                width: 250px;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+                z-index: 1000;
+            }
+            
+            .nav-links.menu-open {
+                right: 0;
+            }
+
+            .nav-links a { margin: 15px 0; font-size: 1.2rem; }
+            .nav-links a.active::after { bottom: -8px; }
+
+            section { padding: 5rem 5%; }
+            .section-title { font-size: 1.8rem; margin-bottom: 2rem; }
+            .about-text { padding: 1.5rem; }
+            .contact-form { padding: 1.5rem; }
+            .resume-container, .projects-grid { gap: 2rem; }
+            .floating-whatsapp { bottom: 20px; right: 20px; width: 55px; height: 55px; font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Rafeek Sameh</div>
+        <div class="menu-btn" id="menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav class="nav-links" id="nav-links">
+            <a href="#hero" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#resume">Resume</a>
+            <a href="#services">Services</a>
+            <a href="#projects">Portfolio</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero">
+        <h1 class="reveal">Hi, I'm Rafeek Sameh</h1>
+        <h2 class="reveal" style="transition-delay: 0.1s;">Data Analyst specialized in SQL, Power BI and Excel. I turn raw data into clean datasets and interactive dashboards.</h2>
+        
+        <div class="hero-buttons reveal" style="transition-delay: 0.2s;">
+            <a href="#projects" class="btn btn-primary">View My Portfolio <i class="fas fa-arrow-right"></i></a>
+            <a href="Rafeek_Sameh_CV.pdf" class="btn btn-outline" download>Download CV <i class="fas fa-file-download"></i></a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title reveal"><span>About</span> Me</h2>
+        <div class="about-text reveal">
+            <p>Hello, I'm <strong>Rafeek Sameh</strong>, a data analyst who helps business owners and companies turn scattered data into clear, number-backed decisions. I work across the entire analytics cycle, from start to finish:</p>
+            <ul>
+                <li><strong>Data extraction:</strong> writing SQL queries (filtering, Group By, Joins, CASE, Subqueries) and designing normalized relational databases.</li>
+                <li><strong>Data cleaning:</strong> removing duplicates, handling missing values, standardizing dates/currencies, and splitting or merging columns using Power Query, Excel, and SQL.</li>
+                <li><strong>Data modeling:</strong> building table relationships, date hierarchies, and calculated columns.</li>
+                <li><strong>Analysis:</strong> DAX measures such as total sales, profit margin, YOY and MOM growth, running totals, and moving averages.</li>
+                <li><strong>Presentation:</strong> interactive Power BI dashboards with slicers, drill-down detail pages, and a professional design.</li>
+            </ul>
+            <p style="text-align: center; margin-top: 25px; font-weight: 700; color: var(--primary);">Tell me about your data and what you want to learn from it, and I'll suggest the best solution.</p>
+            
+            <div class="platform-badges">
+                <a href="https://www.upwork.com/freelancers/~01270369dac578032b" target="_blank" class="platform-badge"><i class="fas fa-laptop-code"></i> Upwork</a>
+                <a href="https://mostaql.com/u/Rafeek_Sameh" target="_blank" class="platform-badge"><i class="fas fa-briefcase"></i> Mostaql</a>
+                <a href="https://khamsat.com/user/rafeek_sameh" target="_blank" class="platform-badge"><i class="fas fa-pen-nib"></i> Khamsat</a>
+                <a href="https://nafezly.com/u/RafeekSameh" target="_blank" class="platform-badge"><i class="fas fa-check-double"></i> Nafezly</a>
+                <a href="https://www.freelancer.com/u/RafeekSameh" target="_blank" class="platform-badge"><i class="fas fa-globe"></i> Freelancer</a>
+                <a href="https://www.fiverr.com/rafeeksameh" target="_blank" class="platform-badge"><i class="fas fa-check-circle"></i> Fiverr</a>
+                <a href="https://freelanceyard.com/en/freelancers/rafeek-sameh" target="_blank" class="platform-badge"><i class="fas fa-rocket"></i> Freelance Yard</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume">
+        <h2 class="section-title reveal">Experience & <span>Education</span></h2>
+        <div class="resume-container">
+            
+            <div class="resume-column reveal">
+                <h3><i class="fas fa-briefcase"></i> Experience & Internships</h3>
+                
+                <div class="resume-card">
+                    <span class="resume-date">Summer 2026 (Completed)</span>
+                    <h4 class="resume-title">Summer Intern</h4>
+                    <div class="resume-subtitle">Commercial International Bank (CIB)</div>
+                    <p class="resume-desc">Selected for the highly competitive summer internship program focusing on banking operations and Generative AI applications.</p>
+                </div>
+
+                <div class="resume-card">
+                    <span class="resume-date">Recent</span>
+                    <h4 class="resume-title">Data Analytics Trainee</h4>
+                    <div class="resume-subtitle">Digital Egypt Pioneers Initiative (DEPI)</div>
+                    <p class="resume-desc">Participated in specialized training tracks and completed practical data analytics projects under the DEPI initiative.</p>
+                </div>
+            </div>
+
+            <div class="resume-column reveal" style="transition-delay: 0.2s;">
+                <h3><i class="fas fa-graduation-cap"></i> Education & Certifications</h3>
+                
+                <div class="resume-card">
+                    <span class="resume-date">Expected Graduation</span>
+                    <h4 class="resume-title">Bachelor of Business Information Systems (BIS)</h4>
+                    <div class="resume-subtitle">Assiut University - Faculty of Commerce</div>
+                    <p class="resume-desc">Bridging the gap between business management and information technology, with strong foundations in financial analysis and computer science.</p>
+                </div>
+
+                <div class="resume-card">
+                    <span class="resume-date">Sept 2026 Cohort</span>
+                    <h4 class="resume-title">GCI World - Data Science & AI</h4>
+                    <div class="resume-subtitle">University of Tokyo (Matsuo-Iwasawa Lab)</div>
+                    <p class="resume-desc">Intensive program covering Data Science and AI methodologies via the Omnicampus platform.</p>
+                </div>
+
+                <div class="resume-card">
+                    <span class="resume-date">Certified</span>
+                    <h4 class="resume-title">Python Programming & AI Badges</h4>
+                    <div class="resume-subtitle">MaharaTech (ITI) & IBM SkillsBuild</div>
+                    <p class="resume-desc">Completed advanced coursework and earned technical badges in Python fundamentals and Artificial Intelligence development.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="services" style="background-color: #fff;">
+        <h2 class="section-title reveal">My <span>Services</span></h2>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fas fa-database"></i></div>
+                <h3>End-to-End Data Analysis</h3>
+                <div class="service-price">Starting at $45</div>
+                <p>I handle your entire data journey: extracting from SQL databases, cleaning, modeling, and presenting in interactive Power BI dashboards ready for decision-making.</p>
+            </div>
+            <div class="service-card reveal" style="transition-delay: 0.1s;">
+                <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
+                <h3>Interactive Power BI Dashboards</h3>
+                <div class="service-price">Starting at $20</div>
+                <p>I design a professional dashboard that presents your key metrics. Includes up to 3 pages, filters, slicers, and delivery of the final PBIX source file.</p>
+            </div>
+            <div class="service-card reveal" style="transition-delay: 0.2s;">
+                <div class="service-icon"><i class="fas fa-code"></i></div>
+                <h3>SQL Query Writing & Optimization</h3>
+                <div class="service-price">Starting at $10</div>
+                <p>I extract, filter, and summarize your data from SQL databases so it is connected and ready for your reports or tools. Delivery in CSV/Excel plus source SQL code.</p>
+            </div>
+            <div class="service-card reveal" style="transition-delay: 0.3s;">
+                <div class="service-icon"><i class="fas fa-broom"></i></div>
+                <h3>Data Cleaning & Preparation</h3>
+                <div class="service-price">Starting at $10</div>
+                <p>I make your data accurate and analysis-ready. Handling missing values, duplicates, format standardization, and data type assignment using Power Query & Excel.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title reveal">Featured <span>Projects</span></h2>
+        <div class="projects-grid">
+            
+            <div class="project-card reveal">
+                <div class="project-img-wrapper">
+                    <img src="M1.jpeg" alt="Superstore Executive Dashboard" class="project-img">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Superstore Executive & Product Analysis</h3>
+                    <div class="project-tools">
+                        <span class="tool-badge">Power BI</span>
+                        <span class="tool-badge">Power Query</span>
+                        <span class="tool-badge">DAX</span>
+                        <span class="tool-badge">Data Modeling</span>
+                    </div>
+                    <div class="project-desc">
+                        <p>An executive dashboard that turns the Sample – Superstore dataset into automated reports and KPIs, helping management measure sales, profitability, and growth trends.</p>
+                        <strong>What I did:</strong>
+                        <ul>
+                            <li>Cleaned data in Power Query and built a Date Table model for Time Intelligence.</li>
+                            <li>Created DAX measures for Total Sales, Profit Margin %, Running Total, and YOY Growth.</li>
+                        </ul>
+                        <strong>Key Insights:</strong>
+                        <ul>
+                            <li>Generated 2.30M in sales and 286.4K in profit (12.47% margin, 46.88% YOY growth).</li>
+                            <li>Identified Furniture as a high-revenue (742K) but low-profit (18K) category, calling for a review of pricing.</li>
+                        </ul>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/file/d/1A_73Y1IoNDvIw0_MMc2WVHZPs8alodDW/view?usp=drive_link" target="_blank">View Dashboard</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal" style="transition-delay: 0.1s;">
+                <div class="project-img-wrapper">
+                    <img src="E1.png" alt="Electronic Sales Dashboard" class="project-img">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Electronic Sales Dashboard</h3>
+                    <div class="project-tools">
+                        <span class="tool-badge">Power BI</span>
+                        <span class="tool-badge">DAX</span>
+                        <span class="tool-badge">Field Parameters</span>
+                        <span class="tool-badge">Bookmarks</span>
+                    </div>
+                    <div class="project-desc">
+                        <p>A dashboard built with a Storyboard approach to answer critical business questions regarding sales trends, geographic performance, profitability, and discount effectiveness.</p>
+                        <strong>What I did:</strong>
+                        <ul>
+                            <li>Designed an Analysis Roadmap with Bookmarks to switch between market share views.</li>
+                            <li>Utilized Field Parameters to dynamically switch axes and What-If Parameters for profit forecasting.</li>
+                        </ul>
+                        <strong>Key Insights:</strong>
+                        <ul>
+                            <li>Laptops lead the market with 11.1M in revenue and 3.9M in profit.</li>
+                            <li>Higher discount levels showed no revenue lift; a 20% discount actually dropped revenue to 1.6M, requiring a discount policy reassessment.</li>
+                        </ul>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/file/d/1pn0OrqC_rWuJgVrepMLGd0SBCM_YacUB/view?usp=sharing" target="_blank">View Dashboard</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal" style="transition-delay: 0.2s;">
+                <div class="project-img-wrapper">
+                    <img src="Amazon.jpeg" alt="Amazon Products Analytics Dashboard" class="project-img">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Amazon Products Analytics</h3>
+                    <div class="project-tools">
+                        <span class="tool-badge">Power BI</span>
+                        <span class="tool-badge">Power Query</span>
+                        <span class="tool-badge">DAX</span>
+                        <span class="tool-badge">Decomposition Tree</span>
+                    </div>
+                    <div class="project-desc">
+                        <p>A data engineering case study that transforms scattered product and customer-review data into a reliable analytical dataset to explore satisfaction, pricing, and quality.</p>
+                        <strong>What I did:</strong>
+                        <ul>
+                            <li>Extensive Power Query transformations to merge sources, handle missing values, and segment data into rating and discount bands.</li>
+                            <li>Built interactive visuals including Scatter plots and Decomposition Trees.</li>
+                        </ul>
+                        <strong>Key Insights:</strong>
+                        <ul>
+                            <li>Analyzed 1,350 products and 1.67 billion reviews with an average discount of 46.70%.</li>
+                            <li>Revealed a weak relationship between discounts and ratings, proving that popularity (mass-market reach) does not guarantee customer satisfaction.</li>
+                        </ul>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/file/d/1mlGE1JwbJeIYas_6iymrG8tseLL6R6Yw/view?usp=drive_link" target="_blank">View Dashboard</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" style="background-color: #fff;">
+        <h2 class="section-title reveal">Get In <span>Touch</span></h2>
+        <div class="contact-container">
+            
+            <div class="contact-info reveal">
+                <h3>Let's talk about your data</h3>
+                <p style="color: var(--text-light); margin-bottom: 25px; font-size: 0.95rem;">Feel free to reach out for freelance projects, consultations, or just to say hi!</p>
+                
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                    <div>
+                        <h4>WhatsApp</h4>
+                        <a href="https://wa.me/201020058026" target="_blank">+20 102 005 8026</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <h4>Email</h4>
+                        <a href="mailto:your-email@example.com">your-email@example.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form reveal" style="transition-delay: 0.2s;">
+                <form action="https://formsubmit.co/your-email@example.com" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" class="form-control" placeholder="How can I help you?" required></textarea>
+                    </div>
+                    <input type="hidden" name="_captcha" value="false">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://wa.me/201020058026" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.linkedin.com/in/rafeek-sameh-06729239a" class="linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/Rafeek-Sameh" class="github" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+        <p class="copyright">&copy; 2026 Rafeek Sameh. All Rights Reserved.</p>
+    </footer>
+
+    <a href="https://wa.me/201020058026" class="floating-whatsapp" target="_blank" title="Contact me on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinksContainer = document.getElementById('nav-links');
+        const menuIcon = menuBtn.querySelector('i');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        menuBtn.addEventListener('click', () => {
+            navLinksContainer.classList.toggle('menu-open');
+            
+            if(navLinksContainer.classList.contains('menu-open')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinksContainer.classList.remove('menu-open');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        reveals.forEach(reveal => {
+            revealOnScroll.observe(reveal);
+        });
+
+        const sections = document.querySelectorAll('section');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
